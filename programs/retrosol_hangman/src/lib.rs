@@ -1,13 +1,13 @@
 use anchor_lang::prelude::*;
 
 mod state;
-// mod errors;
-// mod constant;
+mod errors;
 
 mod context;
 use context::*;
 
-declare_id!("4hvTWxjk5UPGhpVuF1tM9USHLgzKon2W2mrgfxitnEvs");
+
+declare_id!("9TrAnABrMSESR5Qy3cwWfKor3pK7odkS1iJWgV5dCjeN");
 
 #[program]
 pub mod retrosol_hangman {

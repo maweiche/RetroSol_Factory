@@ -1,5 +1,8 @@
 use anchor_lang::prelude::*;
-use crate::state::ChestVault;
+use crate::{
+    state::ChestVault,
+    errors::GameError
+};
 
 #[derive(Accounts)]
 #[instruction(
@@ -40,7 +43,7 @@ impl<'info>AddCorrectLetter<'info> {
             }
         }
         if player_in_vector == false {
-            panic!("You have not started the game yet!");
+            return Err(GameError::NotInGame.into());
         }
         
         let player_index = self.chest_vault.players.iter().position(|x| x.player == self.player.key()).unwrap();
@@ -48,13 +51,13 @@ impl<'info>AddCorrectLetter<'info> {
         // if the incoming letter is already in the listed incorrect guesses vector or listed correct guesses vector, panic
         for i in 0..self.chest_vault.players[player_index].incorrect_guesses.len() {
             if self.chest_vault.players[player_index].incorrect_guesses[i] == letter {
-                panic!("You have already guessed this letter incorrectly!");
+                return Err(GameError::RepeatIncorrectGuess.into());
             }
         }
 
         for i in 0..self.chest_vault.players[player_index].correct_letters.len() {
             if self.chest_vault.players[player_index].correct_letters[i] == letter {
-                panic!("You have already guessed this letter correctly!");
+                return Err(GameError::RepeatCorrectGuess.into());
             }
         }
         let secret_word_vector = {
@@ -121,7 +124,7 @@ impl<'info>AddIncorrectLetter<'info> {
             }
         }
         if player_in_vector == false {
-            panic!("You have not started the game yet!");
+            return Err(GameError::NotInGame.into());
         }
         
         let player_index = self.chest_vault.players.iter().position(|x| x.player == self.player.key()).unwrap();
@@ -129,13 +132,13 @@ impl<'info>AddIncorrectLetter<'info> {
         // if the incoming letter is already in the listed incorrect guesses vector or listed correct guesses vector, panic
         for i in 0..self.chest_vault.players[player_index].incorrect_guesses.len() {
             if self.chest_vault.players[player_index].incorrect_guesses[i] == letter {
-                panic!("You have already guessed this letter incorrectly!");
+                return Err(GameError::RepeatIncorrectGuess.into());
             }
         }
 
         for i in 0..self.chest_vault.players[player_index].correct_letters.len() {
             if self.chest_vault.players[player_index].correct_letters[i] == letter {
-                panic!("You have already guessed this letter correctly!");
+                return Err(GameError::RepeatCorrectGuess.into());
             }
         }
        
@@ -171,14 +174,14 @@ impl<'info>GetChestReward<'info> {
             }
         }
         if player_in_vector == false {
-            panic!("You have not started the game yet!");
+            return Err(GameError::NotInGame.into());
         }
         
         let chest_reward = chest_vault_account.chest_reward;
         let player_index = chest_vault_account.players.iter().position(|x| x.player == ctx.accounts.player.key()).unwrap();
 
         if chest_vault_account.players[player_index].is_winner == false {
-            panic!("You have not solved the puzzle yet!");
+            return Err(GameError::GameIncomplete.into());
         }
 
         let secret_word_vector = {

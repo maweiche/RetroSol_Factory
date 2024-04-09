@@ -1,8 +1,11 @@
 use anchor_lang::prelude::*;
 use anchor_lang::system_program;
-use crate::state::{
-    ChestVault,
-    GameRecord,
+use crate::{
+    state::{
+        ChestVault,
+        GameRecord,
+    },
+    errors::GameError,
 };
 
 #[derive(Accounts)]
@@ -30,7 +33,7 @@ impl<'info>PlayerStartsGame<'info> {
         */
 
         if self.chest_vault.max_attempts_left == 0 {
-            panic!("Max attempts reached. Game Over!");
+            return Err(GameError::MaxAttemptsReached.into());
         }
 
         for player in self.chest_vault.players.iter() {
@@ -96,7 +99,7 @@ impl<'info>Withdraw<'info> {
 
         // if the signer is not the creator of the chest, panic
         if ctx.accounts.signer.key() != authority {
-            panic!("You are not the creator of the chest, you can not withdraw!");
+            return Err(GameError::UnauthorizedCreator.into());
         }
 
         ctx.accounts.chest_vault.close(ctx.accounts.signer.to_account_info())?;
