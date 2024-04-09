@@ -1,12 +1,12 @@
 [package]
-name = "retrosol_factory"
+name = "retrosol_hangman"
 version = "0.1.0"
 description = "Created with Anchor"
 edition = "2021"
 
 [lib]
 crate-type = ["cdylib", "lib"]
-name = "retrosol_factory"
+name = "retrosol_hangman"
 
 [features]
 no-entrypoint = []

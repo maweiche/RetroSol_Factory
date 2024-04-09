@@ -1,7 +1,12 @@
 {
     "scripts": {
         "lint:fix": "prettier */*.js \"*/**/*{.js,.ts}\" -w",
-        "lint": "prettier */*.js \"*/**/*{.js,.ts}\" --check"
+        "lint": "prettier */*.js \"*/**/*{.js,.ts}\" --check",
+        "build:retrosol_battleship": "anchor build -p retrosol_battleship",
+        "build:retrosol_factory": "anchor build -p retrosol_factory",
+        "build:retrosol_hangman": "anchor build -p retrosol_hangman",
+        "build:retrosol_mancala": "anchor build -p retrosol_mancala",
+        "build:all": "anchor build"
     },
     "dependencies": {
         "@coral-xyz/anchor": "^0.29.0"
