@@ -4,14 +4,14 @@
 seeds = false
 skip-lint = false
 
-[programs.localnet]
-retrosol_factory = "FmV6Zwmk8sz8SbxJC7t7SbsfUKPJ3xL7hHirjgE9CMpR"
+[programs.devnet]
+retrosol_hangman = "4hvTWxjk5UPGhpVuF1tM9USHLgzKon2W2mrgfxitnEvs"
 
 [registry]
 url = "https://api.apr.dev"
 
 [provider]
-cluster = "Localnet"
+cluster = "devnet"
 wallet = "/Users/matt/.config/solana/id.json"
 
 [scripts]

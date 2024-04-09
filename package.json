@@ -6,7 +6,12 @@
         "build:retrosol_factory": "anchor build -p retrosol_factory",
         "build:retrosol_hangman": "anchor build -p retrosol_hangman",
         "build:retrosol_mancala": "anchor build -p retrosol_mancala",
-        "build:all": "anchor build"
+        "build:all": "anchor build",
+        "deploy:all": "anchor deploy",
+        "deploy:retrosol_battleship": "anchor deploy -p retrosol_battleship",
+        "deploy:retrosol_factory": "anchor deploy -p retrosol_factory",
+        "deploy:retrosol_hangman": "anchor deploy -p retrosol_hangman",
+        "deploy:retrosol_mancala": "anchor deploy -p retrosol_mancala"
     },
     "dependencies": {
         "@coral-xyz/anchor": "^0.29.0"
