@@ -1,0 +1,11 @@
+{
+    "rust-analyzer.linkedProjects": [
+        "./programs/retrosol_mancala/Cargo.toml",
+        "./programs/retrosol_mancala/Cargo.toml",
+        "./programs/retrosol_mancala/Cargo.toml",
+        "./programs/retrosol_mancala/Cargo.toml",
+        "./programs/retrosol_mancala/Cargo.toml",
+        "./programs/retrosol_mancala/Cargo.toml"
+    ],
+    "rust-analyzer.showUnlinkedFileNotification": false
+}
