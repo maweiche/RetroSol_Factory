@@ -6,7 +6,7 @@ mod errors;
 mod context;
 use context::*;
 
-declare_id!("FmV6Zwmk8sz8SbxJC7t7SbsfUKPJ3xL7hHirjgE9CMpR");
+declare_id!("FLe31QvLbzEVxNVbcudSP9msu1FFmpdj1hGn8zykvs9s");
 
 #[program]
 pub mod retrosol_mancala {
@@ -29,7 +29,8 @@ pub mod retrosol_mancala {
     pub fn withdraw(ctx: Context<Withdraw>) -> Result<()> {
         Withdraw::creator_withdraw(ctx)
     }
-}
 
-#[derive(Accounts)]
-pub struct Initialize {}
+    pub fn make_move(ctx: Context<PlayerMakesMove>, selected_pit: u8) -> Result<()> {
+        ctx.accounts.make_move(selected_pit)
+    }
+}
