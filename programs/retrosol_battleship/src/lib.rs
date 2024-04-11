@@ -19,4 +19,10 @@ pub mod retrosol_battleship {
             entry_fee
         )
     }
+
+    pub fn join_game (
+        ctx: Context<PlayerJoinsGame>,
+    ) -> Result<()> {
+        ctx.accounts.join_game()
+    }
 }
