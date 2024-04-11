@@ -4,9 +4,9 @@ use anchor_lang::prelude::*;
 pub struct GameRecord {
     pub player_one: Pubkey,
     pub player_one_score: u8,
-    pub player_two: Pubkey,
+    pub player_two: Option<Pubkey>,
     pub player_two_score: u8,
-    pub current_move: Pubkey,
+    pub current_move: Option<Pubkey>,
     pub game_over: bool,
     pub winner: Option<Pubkey>,
 }
@@ -17,7 +17,7 @@ impl Space for GameRecord {
 }
 
 #[account]
-pub struct ChestVaultAccount{
+pub struct ChestVault{
     pub authority: Pubkey,
     pub entry_fee: u64,
     pub score_sheet: GameRecord,

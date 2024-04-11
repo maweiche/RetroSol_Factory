@@ -24,7 +24,7 @@ impl<'info>PlayerJoinsGame<'info> {
         */
 
         // if the score_sheet.player_two is not empty, then the game is already full
-        if self.chest_vault.score_sheet.player_two != Pubkey::default() {
+        if self.chest_vault.score_sheet.player_two != None {
             panic!("Game is already full");
         }
 
@@ -42,8 +42,8 @@ impl<'info>PlayerJoinsGame<'info> {
 
         system_program::transfer(cpi_context, self.chest_vault.entry_fee)?;
 
-        self.chest_vault.score_sheet.player_two = self.signer.key();
-        self.chest_vault.score_sheet.current_move = self.chest_vault.score_sheet.player_one;
+        self.chest_vault.score_sheet.player_two = Some(self.signer.key());
+        self.chest_vault.score_sheet.current_move = Some(self.chest_vault.score_sheet.player_one);
 
         Ok(())
     }
@@ -108,18 +108,18 @@ impl<'info>PlayerMakesMove<'info> {
         // if the player is not one of the players in the game, then panic
         // if the player is not the current player, then panic
         
-        if self.chest_vault.score_sheet.player_one != self.signer.key() && self.chest_vault.score_sheet.player_two != self.signer.key() {
+        if self.chest_vault.score_sheet.player_one != self.signer.key() && self.chest_vault.score_sheet.player_two != Some(self.signer.key()) {
             return Err(GameError::NotInGame.into());
         }
 
-        if self.chest_vault.score_sheet.current_move != self.signer.key() {
+        if self.chest_vault.score_sheet.current_move != Some(self.signer.key()) {
             return Err(GameError::NotYourTurn.into());
         }
 
         // create a variable to hold the current player moving, if it is player one, then it is 1, if it is player two, then it is 2
         let current_player_moving: u8;
 
-        if self.chest_vault.score_sheet.current_move == self.chest_vault.score_sheet.player_one {
+        if self.chest_vault.score_sheet.current_move == Some(self.chest_vault.score_sheet.player_one) {
             current_player_moving = 1;
         } else {
             current_player_moving = 2;
@@ -215,36 +215,36 @@ impl<'info>PlayerMakesMove<'info> {
             if self.chest_vault.game_board[1] == 0 && self.chest_vault.game_board[2] == 0 && self.chest_vault.game_board[3] == 0 && self.chest_vault.game_board[4] == 0 && self.chest_vault.game_board[5] == 0 && self.chest_vault.game_board[6] == 0 {
                 self.chest_vault.score_sheet.game_over = true;
                 if self.chest_vault.game_board[7] > self.chest_vault.game_board[0] {
-                    self.chest_vault.score_sheet.winner = self.chest_vault.score_sheet.player_one;
+                    self.chest_vault.score_sheet.winner = Some(self.chest_vault.score_sheet.player_one);
                 } else if self.chest_vault.game_board[7] < self.chest_vault.game_board[0] {
                     self.chest_vault.score_sheet.winner = self.chest_vault.score_sheet.player_two;
                 } else {
-                    self.chest_vault.score_sheet.winner = Pubkey::default();
+                    self.chest_vault.score_sheet.winner = None;
                 }
             }
         } else if current_player_moving == 2{
             if self.chest_vault.game_board[8] == 0 && self.chest_vault.game_board[9] == 0 && self.chest_vault.game_board[10] == 0 && self.chest_vault.game_board[11] == 0 && self.chest_vault.game_board[12] == 0 && self.chest_vault.game_board[13] == 0 {
                 self.chest_vault.score_sheet.game_over = true;
                 if self.chest_vault.game_board[7] > self.chest_vault.game_board[0] {
-                    self.chest_vault.score_sheet.winner = self.chest_vault.score_sheet.player_one;
+                    self.chest_vault.score_sheet.winner = Some(self.chest_vault.score_sheet.player_one);
                 } else if self.chest_vault.game_board[7] < self.chest_vault.game_board[0] {
                     self.chest_vault.score_sheet.winner = self.chest_vault.score_sheet.player_two;
                 } else {
-                    self.chest_vault.score_sheet.winner = Pubkey::default();
+                    self.chest_vault.score_sheet.winner = None;
                 }
             }
         }
         
         // if the last piece lands in the player's score pit, they get another turn, else it is the other player's turn
         if last_pit_landed_in == 7 && current_player_moving == 1 {
-            self.chest_vault.score_sheet.current_move = self.chest_vault.score_sheet.player_one;
+            self.chest_vault.score_sheet.current_move = Some(self.chest_vault.score_sheet.player_one);
         } else if last_pit_landed_in == 0 && current_player_moving == 2 {
             self.chest_vault.score_sheet.current_move = self.chest_vault.score_sheet.player_two;
         } else {
             if current_player_moving == 1 {
                 self.chest_vault.score_sheet.current_move = self.chest_vault.score_sheet.player_two;
             } else {
-                self.chest_vault.score_sheet.current_move = self.chest_vault.score_sheet.player_one;
+                self.chest_vault.score_sheet.current_move = Some(self.chest_vault.score_sheet.player_one);
             }
         }
 

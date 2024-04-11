@@ -23,8 +23,8 @@ pub struct BattleshipInit<'info> {
     pub system_program: Program<'info, System>, 
 }
 
-impl<'info>HangmanInit<'info> {
-    pub fn initialize_game_data(
+impl<'info>BattleshipInit<'info> {
+    pub fn initialize_battleship(
         &mut self, 
         entry_fee: u64
     ) -> Result<()> {
@@ -54,7 +54,6 @@ impl<'info>HangmanInit<'info> {
                     // player_two should be blank for now, will be set when the game is joined
                     player_two: None, 
                     player_two_score: 0,
-                    total_moves: 0,
                     current_move: None,
                     game_over: false,
                     winner: None,
@@ -67,7 +66,7 @@ impl<'info>HangmanInit<'info> {
             self.system_program.to_account_info(),
             system_program::Transfer {
                 from: self.signer.to_account_info().clone(),
-                to: self.to_account_info().clone(),
+                to: self.chest_vault.to_account_info().clone(),
             },
         );
         system_program::transfer(cpi_context, entry_fee)?;

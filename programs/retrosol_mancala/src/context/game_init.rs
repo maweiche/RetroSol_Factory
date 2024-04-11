@@ -51,13 +51,12 @@ impl<'info>MancalaInit<'info> {
                 score_sheet: GameRecord {
                     player_one: self.signer.key(),
                     player_one_score: 0,
-                    // player_two should be blank for now, will be set when the game is joined
-                    player_two: Pubkey::new_from_array([0u8; 32]), 
+                    player_two: None, 
                     player_two_score: 0,
                     total_moves: 0,
-                    current_move: Pubkey::new_from_array([0u8; 32]),
+                    current_move: None,
                     game_over: false,
-                    winner: Pubkey::new_from_array([0u8; 32]),
+                    winner: None,
                 },
             }
         );
