@@ -7,6 +7,7 @@ skip-lint = false
 [programs.devnet]
 retrosol_hangman = "9TrAnABrMSESR5Qy3cwWfKor3pK7odkS1iJWgV5dCjeN"
 retrosol_mancala = "FLe31QvLbzEVxNVbcudSP9msu1FFmpdj1hGn8zykvs9s"
+retrosol_battleship = "5DJwFhaxjeLU2M99acNvNXAdF27Q4Dhin47QncT5nu8K"
 
 [registry]
 url = "https://api.apr.dev"

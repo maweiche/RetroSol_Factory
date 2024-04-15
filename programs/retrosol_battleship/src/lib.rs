@@ -5,7 +5,7 @@ mod errors;
 mod context;
 use context::*;
 
-declare_id!("FmV6Zwmk8sz8SbxJC7t7SbsfUKPJ3xL7hHirjgE9CMpR");
+declare_id!("5DJwFhaxjeLU2M99acNvNXAdF27Q4Dhin47QncT5nu8K");
 
 #[program]
 pub mod retrosol_battleship {
