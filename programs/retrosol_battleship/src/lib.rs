@@ -25,4 +25,30 @@ pub mod retrosol_battleship {
     ) -> Result<()> {
         ctx.accounts.join_game()
     }
+
+    pub fn choose_placement(
+        ctx: Context<PlayerPlacement>,
+        selected_squares: [[u8; 10]; 5]
+    ) -> Result<()> {
+        ctx.accounts.choose_placement(selected_squares)
+    }
+
+    pub fn attack(
+        ctx: Context<PlayerAttacks>,
+        selected_square: [u8; 2]
+    ) -> Result<()> {
+        ctx.accounts.attack(selected_square)
+    }
+
+    pub fn withdraw(
+        ctx: Context<WithdrawLoot>,
+    ) -> Result<()> {
+        ctx.accounts.withdraw()
+    }
+
+    pub fn close_game(
+        ctx: Context<CloseAccount>,
+    ) -> Result<()> {
+        ctx.accounts.close_game()
+    }
 }
