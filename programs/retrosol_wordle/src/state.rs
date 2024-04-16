@@ -13,7 +13,9 @@ impl Space for GameRecord {
 #[account]
 pub struct ChestVault{
     pub authority: Pubkey,
+    pub created_at: i64,
     pub entry_fee: u64,
+    pub prize_pool: u64,
     pub score_sheet: GameRecord,
     pub secret_word: String
 }
